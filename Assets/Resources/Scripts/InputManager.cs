@@ -19,6 +19,9 @@ public class InputManager : MonoBehaviour
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
 
+        playerControl.Movement.performed += ctx => playerMove.isMoving = true;
+        playerControl.Movement.canceled += ctx => playerMove.isMoving = false;
+        
         playerControl.Jump.performed += ctx => playerJump.Jump();
     }
 

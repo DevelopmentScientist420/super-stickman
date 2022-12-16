@@ -16,5 +16,6 @@ public class PlayerJump : Player
     public void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+        // if(playerAnimator.GetTr)
     }
 }
