@@ -16,6 +16,5 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         speed = 0;
-        jump = 0;
     }
 }

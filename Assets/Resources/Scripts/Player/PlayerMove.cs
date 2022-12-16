@@ -24,22 +24,40 @@ public class PlayerMove : Player
 
         rb.velocity = new Vector2(dirX * speed, dirY);
         
+        playerObject.transform.localRotation = dirX switch
+        {
+            < 0f => Quaternion.Euler(new Vector3(0, -180, 0)),
+            > 0f => Quaternion.Euler(new Vector3(0, 0, 0)),
+            _ => playerObject.transform.localRotation
+        };
+        
         if (isMoving)
         {
-            playerObject.transform.localRotation = dirX switch
+            playerAnimator.SetBool("isRun", true);
+            playerAnimator.SetBool("isIdle", false);
+            if (rb.velocity.y > .1f)
             {
-                < 0f => Quaternion.Euler(new Vector3(0, -180, 0)),
-                > 0f => Quaternion.Euler(new Vector3(0, 0, 0)),
-                _ => playerObject.transform.localRotation
-            };
-            playerAnimator.ResetTrigger("isIdle");
-            playerAnimator.SetTrigger("isRun");
+                playerAnimator.SetBool("isRun", false);
+                playerAnimator.SetBool("isJump", true);
+            } else if (rb.velocity.y < -.1f)
+            {
+                playerAnimator.SetBool("isRun", true);
+                playerAnimator.SetBool("isJump", false);
+            }
         }
         else
         {
-            playerAnimator.ResetTrigger("isRun");
-            playerAnimator.SetTrigger("isIdle");
+            playerAnimator.SetBool("isRun", false);
+            playerAnimator.SetBool("isIdle", true);
+            if (rb.velocity.y > .1f)
+            {
+                playerAnimator.SetBool("isJump", true);
+                playerAnimator.SetBool("isIdle", false);
+            } else if (rb.velocity.y < -.1f)
+            {
+                playerAnimator.SetBool("isJump", false);
+                playerAnimator.SetBool("isIdle", true);
+            }
         }
-        
     }
 }
