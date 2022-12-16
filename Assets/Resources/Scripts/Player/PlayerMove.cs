@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+[RequireComponent(typeof(Player))]
+public class PlayerMove : Player
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float playerSpeed;
+    protected override void Start()
     {
-        
+        base.Start();
+        speed = playerSpeed;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Vector2 input)
     {
-        
+        var dirX = input.x;
+        var dirY = rb.velocity.y;
+
+        rb.velocity = new Vector2(dirX * speed, dirY);
     }
 }
