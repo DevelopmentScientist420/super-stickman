@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerMove playerMove;
     private PlayerJump playerJump;
+    private PlayerShoot playerShoot;
 
     private void Awake()
     {
@@ -18,16 +19,19 @@ public class InputManager : MonoBehaviour
 
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
+        playerShoot = GetComponent<PlayerShoot>();
 
         playerControl.Movement.performed += ctx => playerMove.isMoving = true;
         playerControl.Movement.canceled += ctx => playerMove.isMoving = false;
         
         playerControl.Jump.performed += ctx => playerJump.Jump();
+        playerControl.Shoot.performed += ctx => playerShoot.Shoot();
     }
 
     private void Update()
     {
         playerMove.Move(playerControl.Movement.ReadValue<Vector2>());
+        
     }
 
     private void OnEnable()

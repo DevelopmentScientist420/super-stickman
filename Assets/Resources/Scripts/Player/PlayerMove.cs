@@ -24,39 +24,55 @@ public class PlayerMove : Player
 
         rb.velocity = new Vector2(dirX * speed, dirY);
         
-        playerObject.transform.localRotation = dirX switch
+        // playerObject.transform.localRotation = dirX switch
+        // {
+        //     < 0f => Quaternion.Euler(new Vector3(0, -180, 0)),
+        //     > 0f => Quaternion.Euler(new Vector3(0, 0, 0)),
+        //     _ => playerObject.transform.localRotation
+        // };
+
+        switch (dirX)
         {
-            < 0f => Quaternion.Euler(new Vector3(0, -180, 0)),
-            > 0f => Quaternion.Euler(new Vector3(0, 0, 0)),
-            _ => playerObject.transform.localRotation
-        };
+            case < 0f:
+                playerObject.transform.localRotation = Quaternion.Euler(new Vector3(0, -180, 0));
+                GameData.BulletDirection = new Vector2(-5f, 0f);
+                break;
+            case > 0f:
+                playerObject.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                GameData.BulletDirection = new Vector2(5f, 0f);
+                break;
+        }
         
         if (isMoving)
         {
             playerAnimator.SetBool("isRun", true);
             playerAnimator.SetBool("isIdle", false);
-            if (rb.velocity.y > .1f)
+            switch (rb.velocity.y)
             {
-                playerAnimator.SetBool("isRun", false);
-                playerAnimator.SetBool("isJump", true);
-            } else if (rb.velocity.y < -.1f)
-            {
-                playerAnimator.SetBool("isRun", true);
-                playerAnimator.SetBool("isJump", false);
+                case > .1f:
+                    playerAnimator.SetBool("isRun", false);
+                    playerAnimator.SetBool("isJump", true);
+                    break;
+                case < -.1f:
+                    playerAnimator.SetBool("isRun", true);
+                    playerAnimator.SetBool("isJump", false);
+                    break;
             }
         }
         else
         {
             playerAnimator.SetBool("isRun", false);
             playerAnimator.SetBool("isIdle", true);
-            if (rb.velocity.y > .1f)
+            switch (rb.velocity.y)
             {
-                playerAnimator.SetBool("isJump", true);
-                playerAnimator.SetBool("isIdle", false);
-            } else if (rb.velocity.y < -.1f)
-            {
-                playerAnimator.SetBool("isJump", false);
-                playerAnimator.SetBool("isIdle", true);
+                case > .1f:
+                    playerAnimator.SetBool("isJump", true);
+                    playerAnimator.SetBool("isIdle", false);
+                    break;
+                case < -.1f:
+                    playerAnimator.SetBool("isJump", false);
+                    playerAnimator.SetBool("isIdle", true);
+                    break;
             }
         }
     }
