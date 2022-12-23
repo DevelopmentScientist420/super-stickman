@@ -20,18 +20,15 @@ public class PlayerShoot : Player
         if (GameData.BulletAmmo != 0)
         {
             playerAnimator.SetTrigger(IsShoot);
-            if (fireInstance != null)
-            {
-                GameObject bullet = objectPool.GetPooledObject();
-                fireInstance.Fire(bullet);
-                GameData.BulletAmmo--;
-                PlayerUI.UpdateAmmoText(GameData.BulletAmmo.ToString());
-            }
+            if (fireInstance == null) return;
+            var bullet = objectPool.GetPooledObject();
+            fireInstance.Fire(bullet);
+            GameData.BulletAmmo--;
+            PlayerUI.UpdateText($"Ammo: {GameData.BulletAmmo}/5");
         }
         else
         {
-            Debug.Log("OUT OF AMMO!");
+            StartCoroutine(PlayerUI.DelayedText(2f, "No ammo!"));
         }
-        
     }
 }

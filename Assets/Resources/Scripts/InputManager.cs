@@ -31,7 +31,6 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         playerMove.Move(playerControl.Movement.ReadValue<Vector2>());
-        
     }
 
     private void OnEnable()

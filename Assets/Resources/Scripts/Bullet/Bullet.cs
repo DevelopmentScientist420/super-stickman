@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] protected float speed;
+    protected float speed;
 
     protected virtual void OnEnable()
     {

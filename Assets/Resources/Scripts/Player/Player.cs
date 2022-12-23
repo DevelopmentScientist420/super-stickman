@@ -19,5 +19,18 @@ public class Player : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         ammoText = GameObject.Find("AmmoText").GetComponent<TextMeshProUGUI>();
         speed = 0;
+        GameData.PlayerHealth = 30;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.activeSelf)
+        {
+            if (col.gameObject.GetComponent<Interactable>() != null)
+            {
+                var interactable = col.gameObject.GetComponent<Interactable>();
+                interactable.BaseInteract();
+            }
+        }
     }
 }

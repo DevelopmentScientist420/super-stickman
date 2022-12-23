@@ -14,7 +14,6 @@ public class PlayerMove : Player
     {
         base.Start();
         speed = playerSpeed;
-        playerAnimator.SetTrigger("isIdle");
     }
 
     public void Move(Vector2 input)
@@ -23,13 +22,6 @@ public class PlayerMove : Player
         var dirY = rb.velocity.y;
 
         rb.velocity = new Vector2(dirX * speed, dirY);
-        
-        // playerObject.transform.localRotation = dirX switch
-        // {
-        //     < 0f => Quaternion.Euler(new Vector3(0, -180, 0)),
-        //     > 0f => Quaternion.Euler(new Vector3(0, 0, 0)),
-        //     _ => playerObject.transform.localRotation
-        // };
 
         switch (dirX)
         {
@@ -43,6 +35,7 @@ public class PlayerMove : Player
                 break;
         }
         
+        //If true, player moves with appropriate animation
         if (isMoving)
         {
             playerAnimator.SetBool("isRun", true);
@@ -63,6 +56,8 @@ public class PlayerMove : Player
         {
             playerAnimator.SetBool("isRun", false);
             playerAnimator.SetBool("isIdle", true);
+            
+            //Jumping function
             switch (rb.velocity.y)
             {
                 case > .1f:

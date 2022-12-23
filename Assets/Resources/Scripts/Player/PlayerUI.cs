@@ -8,11 +8,18 @@ public class PlayerUI : Player
     protected override void Start()
     {
         base.Start();
-        UpdateAmmoText(GameData.BulletAmmo.ToString());
+        UpdateText($"Ammo: {GameData.BulletAmmo}/5");
     }
 
-    public static void UpdateAmmoText(string text)
+    public static void UpdateText(string text)
     {
-        ammoText.text = $"Ammo: {text}/5";
+        ammoText.text = text;
+    }
+    
+    public static IEnumerator DelayedText(float delay, string text)
+    {
+        UpdateText(text);
+        yield return new WaitForSeconds(delay);
+        UpdateText($"Ammo: {GameData.BulletAmmo}/5");
     }
 }
