@@ -9,11 +9,13 @@ public class PlayerMove : Player
     [SerializeField] private GameObject playerObject;
     [SerializeField] private float playerSpeed;
     public bool isMoving;
+    private InputManager inputManager;
     
     protected override void Start()
     {
         base.Start();
         speed = playerSpeed;
+        inputManager = GetComponent<InputManager>();
     }
 
     public void Move(Vector2 input)
@@ -45,10 +47,12 @@ public class PlayerMove : Player
                 case > .1f:
                     playerAnimator.SetBool("isRun", false);
                     playerAnimator.SetBool("isJump", true);
+                    inputManager.playerControl.Jump.Disable();
                     break;
                 case < -.1f:
                     playerAnimator.SetBool("isRun", true);
                     playerAnimator.SetBool("isJump", false);
+                    inputManager.playerControl.Jump.Enable();
                     break;
             }
         }
@@ -63,10 +67,12 @@ public class PlayerMove : Player
                 case > .1f:
                     playerAnimator.SetBool("isJump", true);
                     playerAnimator.SetBool("isIdle", false);
+                    inputManager.playerControl.Jump.Disable();
                     break;
-                case < -.1f:
+                case < -.0001f:
                     playerAnimator.SetBool("isJump", false);
                     playerAnimator.SetBool("isIdle", true);
+                    inputManager.playerControl.Jump.Enable();
                     break;
             }
         }

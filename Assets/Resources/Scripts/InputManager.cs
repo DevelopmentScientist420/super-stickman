@@ -6,7 +6,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     private PlayerInputAction playerInputAction;
-    private PlayerInputAction.PlayerControlsActions playerControl;
+    public PlayerInputAction.PlayerControlsActions playerControl;
 
     private PlayerMove playerMove;
     private PlayerJump playerJump;

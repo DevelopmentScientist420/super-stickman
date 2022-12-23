@@ -90,7 +90,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""ArrowKeys"",
+                    ""name"": ""Left/Right (ArrowKeys)"",
                     ""id"": ""a06d6d89-4672-4d48-9ace-df2388617dd0"",
                     ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
@@ -126,6 +126,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""540f3b0c-5d2b-42a2-b78b-ab2ce9e5ee3b"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef646687-59a8-4b91-a8ea-fd688b45b786"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",

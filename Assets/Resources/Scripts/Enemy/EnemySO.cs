@@ -6,5 +6,5 @@ using UnityEngine;
 public class EnemySO : ScriptableObject
 {
     public GameObject enemyObject;
-    public int score, health;
+    public int score, health, strength;
 }
