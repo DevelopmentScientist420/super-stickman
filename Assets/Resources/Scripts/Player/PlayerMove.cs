@@ -42,7 +42,7 @@ public class PlayerMove : Player
         {
             playerAnimator.SetBool("isRun", true);
             playerAnimator.SetBool("isIdle", false);
-            switch (rb.velocity.y)
+            switch (dirY)
             {
                 case > .1f:
                     playerAnimator.SetBool("isRun", false);
@@ -62,14 +62,14 @@ public class PlayerMove : Player
             playerAnimator.SetBool("isIdle", true);
             
             //Jumping function
-            switch (rb.velocity.y)
+            switch (dirY)
             {
                 case > .1f:
                     playerAnimator.SetBool("isJump", true);
                     playerAnimator.SetBool("isIdle", false);
                     inputManager.playerControl.Jump.Disable();
                     break;
-                case < -.0001f:
+                case < -.1f:
                     playerAnimator.SetBool("isJump", false);
                     playerAnimator.SetBool("isIdle", true);
                     inputManager.playerControl.Jump.Enable();

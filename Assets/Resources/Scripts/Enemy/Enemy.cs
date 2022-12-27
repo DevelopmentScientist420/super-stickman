@@ -7,7 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     
-    public int startHealth, strength, scoreValue;
+    [HideInInspector] public int startHealth, strength, scoreValue;
     private int health;
     
     private void Start()
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyDie()
     {
-        GameData.PlayerScore += scoreValue;
+        GameData.PlayerScore = GameData.PlayerScore += scoreValue;
         PlayerUI.UpdateScoreText($"Score: {GameData.PlayerScore}");
         Destroy(this.gameObject);
     }

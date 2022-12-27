@@ -13,11 +13,8 @@ public abstract class Player : MonoBehaviour
     protected Rigidbody2D rb;
     protected static TextMeshProUGUI ammoText, scoreText;
 
-    private int playerHealth = 20;
-
     protected virtual void Start()
     {
-        GameData.PlayerHealth = playerHealth;
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         ammoText = GameObject.Find("AmmoText").GetComponent<TextMeshProUGUI>();
@@ -27,11 +24,10 @@ public abstract class Player : MonoBehaviour
 
     private void Update()
     {
-        playerHealth = GameData.PlayerHealth;
-        // if (playerHealth <= 0)
-        // {
-        //     Debug.Log("IT WORKS!");
-        // }
+        if (GameData.PlayerHealth <= 0)
+        {
+            GameManager.Instance.ChangeScene("StatScene");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)

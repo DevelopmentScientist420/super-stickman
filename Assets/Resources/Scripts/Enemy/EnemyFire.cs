@@ -7,7 +7,7 @@ public class EnemyFire : MonoBehaviour
 {
     [SerializeField] private float castDistance;
     [SerializeField] private float bulletDelay;
-    [SerializeField] private GameObject enemyBullet;
+    [HideInInspector] public GameObject enemyBullet;
     [SerializeField] private GameObject gunTip;
     private float timer;
 
