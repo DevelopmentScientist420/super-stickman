@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 363
     height: 556
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -314,7 +314,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 32874
+  m_LastSelectedObjectID: -22246
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -893,14 +893,14 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/ScriptableObjects
+    - Assets/Resources/Prefabs
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 66
   m_LastFolders:
-  - Assets/Resources/ScriptableObjects
+  - Assets/Resources/Prefabs
   m_LastFoldersGridSize: 66
   m_LastProjectPath: H:\GitHub Repos\super-stickman
   m_LockTracker:
@@ -909,7 +909,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d8750000
     m_LastClickedID: 30168
-    m_ExpandedIDs: 00000000aa750000ac750000ae750000b0750000b2750000b4750000b675000000ca9a3b
+    m_ExpandedIDs: 00000000ae750000b0750000b2750000b4750000b6750000b8750000ba75000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -937,7 +937,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000aa750000ac750000ae750000b0750000b2750000b4750000b6750000
+    m_ExpandedIDs: 00000000ae750000b0750000b2750000b4750000b6750000b8750000ba750000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1077,7 +1077,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 381dffffd61dffff6a20ffff2c21ffff5441fffff241ffff8644ffff4845ffffc664ffff6465fffff867ffffba68ffffc879ffff667afffffa7cffffbc7dffff0092ffff5893ffff6a95ffff3c99ffff9e9ffffff2a4ffff56aaffff56b0ffff64b7ffff8ec2ffff9ec9ffff16fbffff7a800000a485000078860000
+      m_ExpandedIDs: 16fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1482,9 +1482,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.788936, y: -0.05167468, z: -0.08774795}
+    m_Target: {x: 0.38062602, y: 0.3083458, z: -0.06580052}
     speed: 2
-    m_Value: {x: 0.788936, y: -0.05167468, z: -0.08774795}
+    m_Value: {x: 0.38062602, y: 0.3083458, z: -0.06580052}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1534,9 +1534,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.179867
+    m_Target: 6.5596385
     speed: 2
-    m_Value: 6.179867
+    m_Value: 6.5596385
   m_Ortho:
     m_Target: 1
     speed: 2
