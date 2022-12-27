@@ -11,7 +11,7 @@ public abstract class Player : MonoBehaviour
     protected float speed;
     protected float jump;
     protected Rigidbody2D rb;
-    protected static TextMeshProUGUI ammoText;
+    protected static TextMeshProUGUI ammoText, scoreText;
 
     private int playerHealth = 20;
 
@@ -21,6 +21,7 @@ public abstract class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         ammoText = GameObject.Find("AmmoText").GetComponent<TextMeshProUGUI>();
+        scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
         speed = 0;
     }
 

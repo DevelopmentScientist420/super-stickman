@@ -6,10 +6,11 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     protected float speed;
+    protected Vector2 direction;
 
     protected virtual void OnEnable()
     {
-        var direction = GameData.BulletDirection;
+        direction = GameData.BulletDirection;
         direction.Normalize();
         GetComponent<Rigidbody2D>().velocity = direction * speed;
     }

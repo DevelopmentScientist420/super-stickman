@@ -17,7 +17,7 @@ public class AmmoPack : Interactable
         {
             var ammoAdd = 5 - GameData.BulletAmmo;
             GameData.BulletAmmo += ammoAdd;
-            PlayerUI.UpdateText($"Ammo: {GameData.BulletAmmo}/5");
+            PlayerUI.UpdateAmmoText($"Ammo: {GameData.BulletAmmo}/5");
             this.gameObject.SetActive(false);
         }
         else

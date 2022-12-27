@@ -24,7 +24,7 @@ public class PlayerShoot : Player
             var bullet = objectPool.GetPooledObject();
             fireInstance.Fire(bullet);
             GameData.BulletAmmo--;
-            PlayerUI.UpdateText($"Ammo: {GameData.BulletAmmo}/5");
+            PlayerUI.UpdateAmmoText($"Ammo: {GameData.BulletAmmo}/5");
         }
         else
         {
