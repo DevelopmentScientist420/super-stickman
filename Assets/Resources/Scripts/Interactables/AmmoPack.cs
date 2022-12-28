@@ -22,7 +22,7 @@ public class AmmoPack : Interactable
         }
         else
         {
-            StartCoroutine(PlayerUI.DelayedText(2f, "Ammo full!"));
+            StartCoroutine(PlayerUI.DelayedAmmoText(2f, "Ammo full!"));
         }
     }
 }

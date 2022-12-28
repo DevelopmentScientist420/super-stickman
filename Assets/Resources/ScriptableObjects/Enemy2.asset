@@ -16,4 +16,4 @@ MonoBehaviour:
   enemyBullet: {fileID: 7646150566371347388, guid: 5173eb83ecbe5e34baedcafc609e8c68, type: 3}
   scoreValue: 5
   health: 4
-  strength: 3
+  strength: 4

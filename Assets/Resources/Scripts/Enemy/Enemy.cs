@@ -1,19 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class Enemy : MonoBehaviour
 {
-    
     [HideInInspector] public int startHealth, strength, scoreValue;
+    private TextMeshProUGUI healthText;
     private int health;
     
     private void Start()
     {
+        healthText = GetComponentInChildren<TextMeshProUGUI>();
         health = startHealth;
-        
+        healthText.text = health.ToString();
     }
 
     private void Update()
@@ -29,6 +31,7 @@ public class Enemy : MonoBehaviour
         if (health != 0)
         {
             health--;
+            healthText.text = health.ToString();
         }
     }
 

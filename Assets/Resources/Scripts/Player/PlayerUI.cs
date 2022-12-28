@@ -21,7 +21,7 @@ public class PlayerUI : Player
         scoreText.text = text;
     }
     
-    public static IEnumerator DelayedText(float delay, string text)
+    public static IEnumerator DelayedAmmoText(float delay, string text)
     {
         UpdateAmmoText(text);
         yield return new WaitForSeconds(delay);

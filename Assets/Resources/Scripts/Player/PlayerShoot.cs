@@ -28,7 +28,7 @@ public class PlayerShoot : Player
         }
         else
         {
-            StartCoroutine(PlayerUI.DelayedText(2f, "No ammo!"));
+            StartCoroutine(PlayerUI.DelayedAmmoText(2f, "No ammo!"));
         }
     }
 }

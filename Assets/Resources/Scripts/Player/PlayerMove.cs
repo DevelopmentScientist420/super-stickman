@@ -24,7 +24,8 @@ public class PlayerMove : Player
         var dirY = rb.velocity.y;
 
         rb.velocity = new Vector2(dirX * speed, dirY);
-
+        
+        //Flips player left and right
         switch (dirX)
         {
             case < 0f:
