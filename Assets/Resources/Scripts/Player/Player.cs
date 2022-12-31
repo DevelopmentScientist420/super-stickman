@@ -26,8 +26,7 @@ public abstract class Player : MonoBehaviour
     {
         if (GameData.PlayerHealth <= 0)
         {
-            GameManager.Instance.ChangeScene("StatScene");
-            GameData.IsWin = false;
+            GameManager.Instance.PlayerDie();
         }
     }
 
