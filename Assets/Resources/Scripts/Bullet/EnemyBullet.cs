@@ -23,6 +23,7 @@ public class EnemyBullet : Bullet
         if (col.gameObject.CompareTag("Player"))
         {
             GameManager.Instance.DamagePlayer(bulletDamage);
+            GameManager.Instance.SaveData();
             Destroy(this.gameObject);
         }
     }

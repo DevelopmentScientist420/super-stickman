@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     public void EnemyDie()
     {
         GameData.PlayerScore = GameData.PlayerScore += scoreValue;
+        GameManager.Instance.SaveData();
         PlayerUI.UpdateScoreText($"Score: {GameData.PlayerScore}");
         Destroy(this.gameObject);
     }

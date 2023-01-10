@@ -5,10 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameManager : Singleton<GameManager>
 {
     private Slider playerHealthSlider;
+    private SaveLoadManager saveLoadManager;
 
     protected override void Awake()
     {
@@ -36,6 +38,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ReturnToMenu()
     {
+        GameManager.Instance.SaveData();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -43,12 +46,52 @@ public class GameManager : Singleton<GameManager>
     {
         Application.Quit();
     }
+    
+    public void SaveData()
+    {
+        saveLoadManager = new SaveLoadManager();
+        saveLoadManager.Save();
+    }
 
+    private void LoadData()
+    {
+        saveLoadManager = new SaveLoadManager();
+        ChangeScene("FirstLevel");
+        saveLoadManager.Load();
+    }
+
+    private void ChangePlayButton(string text)
+    {
+        var playButton = GameObject.Find("PlayButton");
+
+        playButton.GetComponent<TextMeshProUGUI>().text = text;
+        playButton.GetComponent<Button>().onClick.AddListener(LoadData);
+    }
+    
     private void ResetData()
     {
+        saveLoadManager = new SaveLoadManager();
+        saveLoadManager.DeleteSave();
+        
         GameData.PlayerHealth = 30;
         GameData.BulletAmmo = 5;
         GameData.PlayerScore = 0;
+    }
+
+    private void LoadPosition()
+    {
+        var player = GameObject.Find("Player");
+        Vector3 localPosition;
+        localPosition.x = GameData.PlayerPosition[0];
+        localPosition.y = GameData.PlayerPosition[1];
+        localPosition.z = GameData.PlayerPosition[2];
+        player.transform.position = localPosition;
+    }
+
+    public void ResetDataAndReload()
+    {
+        ResetData();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void CheckOrAddHighScore()
@@ -67,15 +110,29 @@ public class GameManager : Singleton<GameManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "FirstLevel")
+        if (scene.name == "MainMenu")
         {
+            if (File.Exists(Application.persistentDataPath + "/StickmanData.json"))
+            {
+                ChangePlayButton("Continue");
+            }
+        }
+        else if (scene.name == "FirstLevel")
+        {
+            if (this != Instance) return;
+            
             //Sets player health slider and its values
             playerHealthSlider = GameObject.Find("Player").GetComponentInChildren<Slider>();
-            playerHealthSlider.maxValue = GameData.PlayerHealth;
             playerHealthSlider.value = GameData.PlayerHealth;
-            
-            //Resets static variable data
-            ResetData();
+
+            if (!File.Exists(Application.persistentDataPath + "/StickmanData.json"))
+            {
+                playerHealthSlider.maxValue = GameData.PlayerHealth;
+            }
+            else
+            {
+                GameManager.Instance.LoadPosition();
+            }
         } else if (scene.name == "ScoreScene")
         {
             if (this != Instance) return;
@@ -85,7 +142,7 @@ public class GameManager : Singleton<GameManager>
         {
             var statText = GameObject.Find("StatText").GetComponent<TextMeshProUGUI>();
             var scoreText = GameObject.Find("HighScoreText").GetComponent<TextMeshProUGUI>();
-            
+
             if (!GameData.IsWin)
             {
                 statText.text = "You Lost!";

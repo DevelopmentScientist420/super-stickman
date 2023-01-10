@@ -26,6 +26,7 @@ public class InputManager : MonoBehaviour
         
         playerControl.Jump.performed += ctx => playerJump.Jump();
         playerControl.Shoot.performed += ctx => playerShoot.Shoot();
+        playerControl.Exit.performed += ctx => GameManager.Instance.ReturnToMenu();
     }
 
     private void Update()

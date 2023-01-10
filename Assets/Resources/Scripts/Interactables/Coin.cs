@@ -15,6 +15,7 @@ public class Coin : Interactable
     {
         GameData.PlayerScore += scoreValue;
         PlayerUI.UpdateScoreText($"Score: {GameData.PlayerScore}");
+        GameManager.Instance.SaveData();
         this.gameObject.SetActive(false);
     }
 }
