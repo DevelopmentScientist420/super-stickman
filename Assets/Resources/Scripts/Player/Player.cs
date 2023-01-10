@@ -32,12 +32,14 @@ public abstract class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        //Checks if collided game object is active
         if (col.gameObject.activeSelf)
         {
+            //Checks if the collided game object has the
+            //Interactable component
             if (col.gameObject.GetComponent<Interactable>() != null)
             {
-                var interactable = col.gameObject.GetComponent<Interactable>();
-                interactable.BaseInteract();
+                col.gameObject.GetComponent<Interactable>().BaseInteract();
             }
         }
     }

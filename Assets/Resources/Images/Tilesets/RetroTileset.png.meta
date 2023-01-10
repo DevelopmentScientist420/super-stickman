@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -5803,8 +5803,8 @@ TextureImporter:
       RetroTileset_235: -556116207
       RetroTileset_86: 1642341729
       RetroTileset_33: -1821381038
-      RetroTileset_246: 604794856
       RetroTileset_115: -697526649
+      RetroTileset_246: 604794856
       RetroTileset_251: 1769387147
       RetroTileset_71: -51045518
       RetroTileset_37: -601099981
