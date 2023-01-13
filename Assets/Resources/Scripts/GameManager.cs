@@ -50,14 +50,16 @@ public class GameManager : Singleton<GameManager>
     public void SaveData()
     {
         saveLoadManager = new SaveLoadManager();
+        GameData.CurrentScene = SceneManager.GetActiveScene().name;
+        Debug.Log(GameData.CurrentScene);
         saveLoadManager.Save();
     }
 
     private void LoadData()
     {
         saveLoadManager = new SaveLoadManager();
-        ChangeScene("FirstLevel");
         saveLoadManager.Load();
+        ChangeScene(GameData.CurrentScene);
     }
 
     private void ChangePlayButton(string text)
@@ -76,6 +78,7 @@ public class GameManager : Singleton<GameManager>
         GameData.PlayerHealth = 30;
         GameData.BulletAmmo = 5;
         GameData.PlayerScore = 0;
+        GameData.CurrentScene = "";
     }
 
     private void LoadPosition()
@@ -92,6 +95,22 @@ public class GameManager : Singleton<GameManager>
     {
         ResetData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void InitializePlayer()
+    {
+        //Sets player health slider and its values
+        playerHealthSlider = GameObject.Find("Player").GetComponentInChildren<Slider>();
+        playerHealthSlider.value = GameData.PlayerHealth;
+
+        if (!File.Exists(Application.persistentDataPath + "/StickmanData.json"))
+        {
+            playerHealthSlider.maxValue = GameData.PlayerHealth;
+        }
+        else
+        {
+            Instance.LoadPosition();
+        }
     }
 
     private void CheckOrAddHighScore()
@@ -121,19 +140,15 @@ public class GameManager : Singleton<GameManager>
         {
             if (this != Instance) return;
             
-            //Sets player health slider and its values
-            playerHealthSlider = GameObject.Find("Player").GetComponentInChildren<Slider>();
-            playerHealthSlider.value = GameData.PlayerHealth;
-
-            if (!File.Exists(Application.persistentDataPath + "/StickmanData.json"))
-            {
-                playerHealthSlider.maxValue = GameData.PlayerHealth;
-            }
-            else
-            {
-                GameManager.Instance.LoadPosition();
-            }
-        } else if (scene.name == "ScoreScene")
+            InitializePlayer();
+        }
+        else if (scene.name == "SecondLevel")
+        {
+            if (this != Instance) return;
+            
+            InitializePlayer();
+        }
+        else if (scene.name == "ScoreScene")
         {
             if (this != Instance) return;
             CheckOrAddHighScore();

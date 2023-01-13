@@ -21,7 +21,8 @@ public class SaveLoadManager
                 [0] = player.x,
                 [1] = player.y,
                 [2] = player.z
-            }
+            },
+            currentScene = GameData.CurrentScene
         };
 
         var jsonSave = JsonUtility.ToJson(serializedData);
@@ -43,6 +44,7 @@ public class SaveLoadManager
             GameData.PlayerHealth = serializedData.serHealth;
             GameData.PlayerScore = serializedData.serScore;
             GameData.BulletAmmo = serializedData.serAmmo;
+            GameData.CurrentScene = serializedData.currentScene;
 
             GameData.PlayerPosition[0] = serializedData.position[0];
             GameData.PlayerPosition[1] = serializedData.position[1];

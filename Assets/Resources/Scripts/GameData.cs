@@ -11,4 +11,5 @@ public abstract class GameData : MonoBehaviour
     public static bool IsWin { get; set; }
     public static Vector2 BulletDirection { get; set; } = new Vector2(5f, 0f);
     public static float[] PlayerPosition { get; set; }
+    public static string CurrentScene { get; set; }
 }
