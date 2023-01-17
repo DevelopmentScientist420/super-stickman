@@ -19,6 +19,7 @@ public class LevelChange : MonoBehaviour
             else
             {
                 GameManager.Instance.ChangeScene("StatScene");
+                GameData.IsWin = true;
             }
         }
     }

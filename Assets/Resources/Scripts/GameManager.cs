@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.InputSystem.HID;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -67,7 +68,14 @@ public class GameManager : Singleton<GameManager>
         var playButton = GameObject.Find("PlayButton");
 
         playButton.GetComponent<TextMeshProUGUI>().text = text;
-        playButton.GetComponent<Button>().onClick.AddListener(LoadData);
+        if (File.Exists(Application.persistentDataPath + "/StickmanData.json"))
+        {
+            playButton.GetComponent<Button>().onClick.AddListener(LoadData);    
+        }
+        else
+        {
+            playButton.GetComponent<Button>().onClick.RemoveListener(LoadData);
+        }
     }
     
     private void ResetData()
@@ -78,7 +86,9 @@ public class GameManager : Singleton<GameManager>
         GameData.PlayerHealth = 30;
         GameData.BulletAmmo = 5;
         GameData.PlayerScore = 0;
-        GameData.CurrentScene = "";
+        GameData.CurrentScene = "FirstLevel";
+        GameData.IsWin = false;
+        ChangePlayButton("Play");
     }
 
     private void LoadPosition()
@@ -113,9 +123,14 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void CheckOrAddHighScore()
+    private void CheckHighScore()
     {
         var scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        scoreText.text = PlayerPrefs.GetInt("HighScore").ToString();
+    }
+
+    private void AddHighScore()
+    {
         //If never initialized before, high score will be set to the default value of 0
         //And if player score is higher than the high score, then it will update itself
         //High score will be saved and updated locally in the player's computer so that when the game restarts
@@ -124,7 +139,6 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerPrefs.SetInt("HighScore", GameData.PlayerScore);
         }
-        scoreText.text = PlayerPrefs.GetInt("HighScore").ToString();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -134,6 +148,11 @@ public class GameManager : Singleton<GameManager>
             if (File.Exists(Application.persistentDataPath + "/StickmanData.json"))
             {
                 ChangePlayButton("Continue");
+            }
+
+            if (GameData.PlayerHealth <= 0 || GameData.IsWin)
+            {
+                ResetData();
             }
         }
         else if (scene.name == "FirstLevel")
@@ -151,7 +170,7 @@ public class GameManager : Singleton<GameManager>
         else if (scene.name == "ScoreScene")
         {
             if (this != Instance) return;
-            CheckOrAddHighScore();
+            CheckHighScore();
         }
         else if (scene.name == "StatScene") 
         {
@@ -162,10 +181,12 @@ public class GameManager : Singleton<GameManager>
             {
                 statText.text = "You Lost!";
                 scoreText.text = $"Score: {GameData.PlayerScore}";
+                AddHighScore();
             } else if (GameData.IsWin)
             {
                 statText.text = "You Win!";
                 scoreText.text = $"Score: {GameData.PlayerScore}";
+                AddHighScore();
             }
         }
     }
