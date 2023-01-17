@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castDistance: 15
-  bulletDelay: 0.7
+  bulletDelay: 0.3
   enemyBullet: {fileID: 7646150566371347388, guid: 5173eb83ecbe5e34baedcafc609e8c68, type: 3}
   gunTip: {fileID: 5493517509429600679}
 --- !u!1 &5493517509429600679
