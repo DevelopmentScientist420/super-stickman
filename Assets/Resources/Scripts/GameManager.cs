@@ -6,12 +6,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
-using UnityEngine.InputSystem.HID;
+using UnityEditor;
 
 public class GameManager : Singleton<GameManager>
 {
     private Slider playerHealthSlider;
     private SaveLoadManager saveLoadManager;
+
+    private Button scoreButton, exitButton;
 
     protected override void Awake()
     {
@@ -19,6 +21,7 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(this.gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+    
 
     public void DamagePlayer(int damageValue)
     {
@@ -43,9 +46,14 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void ExitGame()
+    private void ExitGame()
     {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
+#if UNITY_STANDALONE
         Application.Quit();
+#endif
     }
     
     public void SaveData()
@@ -63,17 +71,19 @@ public class GameManager : Singleton<GameManager>
         ChangeScene(GameData.CurrentScene);
     }
 
-    private void ChangePlayButton(string text)
+    private void ChangePlayButton()
     {
         var playButton = GameObject.Find("PlayButton");
 
-        playButton.GetComponent<TextMeshProUGUI>().text = text;
+        
         if (File.Exists(Application.persistentDataPath + "/StickmanData.json"))
         {
+            playButton.GetComponent<TextMeshProUGUI>().text = "Continue";
             playButton.GetComponent<Button>().onClick.AddListener(LoadData);    
         }
         else
         {
+            playButton.GetComponent<TextMeshProUGUI>().text = "Play";
             playButton.GetComponent<Button>().onClick.RemoveListener(LoadData);
         }
     }
@@ -88,7 +98,7 @@ public class GameManager : Singleton<GameManager>
         GameData.PlayerScore = 0;
         GameData.CurrentScene = "FirstLevel";
         GameData.IsWin = false;
-        ChangePlayButton("Play");
+        ChangePlayButton();
     }
 
     private void LoadPosition()
@@ -145,11 +155,14 @@ public class GameManager : Singleton<GameManager>
     {
         if (scene.name == "MainMenu")
         {
-            if (File.Exists(Application.persistentDataPath + "/StickmanData.json"))
-            {
-                ChangePlayButton("Continue");
-            }
-
+            scoreButton = GameObject.Find("ScoreButton").GetComponent<Button>();
+            exitButton = GameObject.Find("ExitButton").GetComponent<Button>();
+            
+            scoreButton.onClick.AddListener(() => ChangeScene("ScoreScene"));
+            exitButton.onClick.AddListener(ExitGame);
+            
+            ChangePlayButton();
+            
             if (GameData.PlayerHealth <= 0 || GameData.IsWin)
             {
                 ResetData();
@@ -170,12 +183,16 @@ public class GameManager : Singleton<GameManager>
         else if (scene.name == "ScoreScene")
         {
             if (this != Instance) return;
+            var returnButton = GameObject.Find("ReturnButton").GetComponent<Button>();
+            returnButton.onClick.AddListener((() => ChangeScene("MainMenu")));
             CheckHighScore();
         }
         else if (scene.name == "StatScene") 
         {
             var statText = GameObject.Find("StatText").GetComponent<TextMeshProUGUI>();
             var scoreText = GameObject.Find("HighScoreText").GetComponent<TextMeshProUGUI>();
+            var returnButton2 = GameObject.Find("ReturnButton").GetComponent<Button>();
+            returnButton2.onClick.AddListener(() => ChangeScene("MainMenu"));
 
             if (!GameData.IsWin)
             {
