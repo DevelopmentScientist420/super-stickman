@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     private Slider playerHealthSlider;
     private SaveLoadManager saveLoadManager;
 
-    private Button scoreButton, exitButton;
+    private Button playButton, scoreButton, exitButton;
 
     protected override void Awake()
     {
@@ -73,18 +73,17 @@ public class GameManager : Singleton<GameManager>
 
     private void ChangePlayButton()
     {
-        var playButton = GameObject.Find("PlayButton");
-
+        playButton = GameObject.Find("PlayButton").GetComponent<Button>();
         
         if (File.Exists(Application.persistentDataPath + "/StickmanData.json"))
         {
             playButton.GetComponent<TextMeshProUGUI>().text = "Continue";
-            playButton.GetComponent<Button>().onClick.AddListener(LoadData);    
+            playButton.onClick.AddListener(LoadData);    
         }
         else
         {
             playButton.GetComponent<TextMeshProUGUI>().text = "Play";
-            playButton.GetComponent<Button>().onClick.RemoveListener(LoadData);
+            playButton.onClick.RemoveListener(LoadData);
         }
     }
     
