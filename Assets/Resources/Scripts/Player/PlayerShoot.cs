@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerShoot : Player
 {
-    private static readonly int IsShoot = Animator.StringToHash("isShoot");
     public ObjectPooling objectPool;
     private GunFire fireInstance;
 
@@ -19,7 +18,7 @@ public class PlayerShoot : Player
     {
         if (GameData.BulletAmmo != 0)
         {
-            playerAnimator.SetTrigger(IsShoot);
+            playerAnimator.SetTrigger("isShoot");
             if (fireInstance == null) return;
             var bullet = objectPool.GetPooledObject();
             fireInstance.Fire(bullet);
